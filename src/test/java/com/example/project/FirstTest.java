@@ -30,7 +30,7 @@ class FirstTest {
     	}
     	
     	try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (Exception e) { }
     }
     
@@ -38,8 +38,9 @@ class FirstTest {
 	@DisplayName("My 1st JUnit 5 test! 😎")
 	void myFirstTest(TestInfo testInfo) {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		} catch (Exception e) { }
+		
 		
 		Calculator calculator = new Calculator();
 		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
@@ -50,7 +51,7 @@ class FirstTest {
 	@DisplayName("My 2st JUnit 5 test! 😎")
 	void mySecondTest(TestInfo testInfo) {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		} catch (Exception e) { }
 		
 		Calculator calculator = new Calculator();
