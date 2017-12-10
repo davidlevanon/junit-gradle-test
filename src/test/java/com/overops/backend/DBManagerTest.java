@@ -8,7 +8,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 
-package com.example.project;
+package com.overops.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,12 +19,12 @@ import org.junit.Before;
 import org.junit.jupiter.api.TestInfo;
 
 @Tag("fast")
-class FirstTest {
+class DBManagerTest {
 	@Before
     public void init() {
     	try {
-	    	Calculator calculator = new Calculator();
-			assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
+	    	DBManager dbManager = new DBManager();
+			assertEquals(true, dbManager.connect(""), "Invalid connection string");
     	} catch (Exception e) {
     		
     	}
@@ -36,26 +36,24 @@ class FirstTest {
     
 	@Test
 	@DisplayName("My 1st JUnit 5 test! 😎")
-	void myFirstTest(TestInfo testInfo) {
+	void testEmptyConnection(TestInfo testInfo) {
 		try {
 			Thread.sleep(5000);
 		} catch (Exception e) { }
 		
 		
-		Calculator calculator = new Calculator();
-		assertEquals(2, calculator.add(1, 1), "1 + 1 should equal 2");
-		assertEquals("My 1st JUnit 5 test! 😎", testInfo.getDisplayName(), () -> "TestInfo is injected correctly");
+		DBManager dbManager = new DBManager();
+		assertEquals(true, dbManager.connect(""), "Invalid connection string");
 	}
 
 	@Test
 	@DisplayName("My 2st JUnit 5 test! 😎")
-	void mySecondTest(TestInfo testInfo) {
+	void testInvalidConnetion(TestInfo testInfo) {
 		try {
 			Thread.sleep(5000);
 		} catch (Exception e) { }
 		
-		Calculator calculator = new Calculator();
-		assertEquals(2, calculator.add(1, 4), "1 + 4 should equal 5");
-		assertEquals("My 2st JUnit 5 test! 😎", testInfo.getDisplayName(), () -> "TestInfo is injected correctly");
+		DBManager dbManager = new DBManager();
+		assertEquals(true, dbManager.connect("invalid"), "Invalid connection string");
 	}
 }
