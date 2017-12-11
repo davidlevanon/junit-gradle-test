@@ -75,7 +75,7 @@ class DBManagerTest {
 	@Test
 	@DisplayName("Connect to invalid url")
 	void testInvalidConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("some invalid url", false);
+		DBManager manager = DBManager.connect("http:// mysql.overops.com:3060/instance", false);
 	}
 	
 	 @Test

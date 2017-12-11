@@ -75,7 +75,7 @@ class ResourcesManagerTest {
 	@Test
 	@DisplayName("Connect to invalid url")
 	void testInvalidConnection(TestInfo testInfo) {
-		ResourcesManager manager = new ResourcesManager("some invalid url", false);
+		ResourcesManager manager = new ResourcesManager("http:// mysql.overops.com:3060/instance", false);
 	}
 	
 	 @Test
