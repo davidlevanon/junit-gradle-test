@@ -21,13 +21,12 @@ class DBManagerTest {
     	logger.log(Level.INFO, "DBManagerTest starting...");
 
     	try {
-	    	DBManager manager = DBManager.connect("test", true);
+	    	DBManager manager = DBManager.connect("", true);
     	} catch (Exception e) { 
-    		e.printStackTrace();
     	}
     	
     	try {
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 		} catch (Exception e) { }
 		
 		logger.log(Level.INFO, "DBManagerTest started");

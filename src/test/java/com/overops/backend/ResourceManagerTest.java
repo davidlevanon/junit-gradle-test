@@ -21,13 +21,12 @@ class ResourcesManagerTest {
     	logger.log(Level.INFO, "ResourcesManagerTest starting...");
 
     	try {
-	    	new ResourcesManager("test", true);
+	    	new ResourcesManager("", true);
     	} catch (Exception e) { 
-    		e.printStackTrace();
     	}
     	
     	try {
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 		} catch (Exception e) { }
 		
 		logger.log(Level.INFO, "ResourcesManagerTest started");
