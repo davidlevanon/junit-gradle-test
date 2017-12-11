@@ -13,15 +13,15 @@ import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.BeforeAll;
 
 @Tag("fast")
-class DBManagerTest {
-	private static Logger logger = Logger.getLogger(DBManagerTest.class.getName());
+class ResourcesManagerTest {
+	private static Logger logger = Logger.getLogger(ResourcesManagerTest.class.getName());
 
 	@BeforeAll
     public static void init() {
-    	logger.log(Level.INFO, "DBManagerTest starting...");
+    	logger.log(Level.INFO, "ResourcesManagerTest starting...");
 
     	try {
-	    	DBManager manager = DBManager.connect("test", true);
+	    	new ResourcesManager("test", true);
     	} catch (Exception e) { 
     		e.printStackTrace();
     	}
@@ -30,59 +30,59 @@ class DBManagerTest {
 			Thread.sleep(1000);
 		} catch (Exception e) { }
 		
-		logger.log(Level.INFO, "DBManagerTest started");
+		logger.log(Level.INFO, "ResourcesManagerTest started");
     }
     
     @Test
 	@DisplayName("Connect to secure connection")
 	void testSecureConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("http://secure.address", true);
+		ResourcesManager manager = new ResourcesManager("http://secure.address", true);
 		assertEquals(true, manager.testConnection(), "Connection OK");
 	}
 	
 	@Test
 	@DisplayName("Connect to secure connection https")
 	void testHttpsConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("https://db.address", true);
+		ResourcesManager manager = new ResourcesManager("https://db.address", true);
 		assertEquals(true, manager.testConnection(), "Connection OK");
 	}
 	
 	@Test
 	@DisplayName("Connect to unsecure connection")
 	void testUnsecuredConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("http://db.address", false);
+		ResourcesManager manager = new ResourcesManager("http://db.address", false);
 		assertEquals(true, manager.testConnection(), "Connection OK");
 	}
 	
 	@Test
 	@DisplayName("Connect to unsecure mysql connection")
 	void testUnsecuredMysqlConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("mysql://db.address", false);
+		ResourcesManager manager = new ResourcesManager("mysql://db.address", false);
 		assertEquals(true, manager.testConnection(), "Connection OK");
 	}
 	
 	@Test
 	@DisplayName("Connect to null")
 	void testNullConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect(null, false);
+		ResourcesManager manager = new ResourcesManager(null, false);
 	}
 	
 	@Test
 	@DisplayName("Connect to empty string")
 	void testEmptyConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("", false);
+		ResourcesManager manager = new ResourcesManager("", false);
 	}
 	
 	@Test
 	@DisplayName("Connect to invalid url")
 	void testInvalidConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("some invalid url", false);
+		ResourcesManager manager = new ResourcesManager("some invalid url", false);
 	}
 	
 	 @Test
 	@DisplayName("Connect to short secure connection")
 	void testShortSecureConnection(TestInfo testInfo) {
-		DBManager manager = DBManager.connect("http://secure.a", true);
+		ResourcesManager manager = new ResourcesManager("http://secure.a", true);
 		assertEquals(true, manager.testConnection(), "Connection OK");
 	}
 }

@@ -1,29 +1,54 @@
-/*
- * Copyright 2015-2016 the original author or authors.
- *
- * All rights reserved. This program and the accompanying materials are
- * made available under the terms of the Eclipse Public License v1.0 which
- * accompanies this distribution and is available at
- *
- * http://www.eclipse.org/legal/epl-v10.html
- */
-
 package com.overops.backend;
 
-public class DBManager {
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
-	public boolean connect(String connectionString) {
+public class DBManager {
+	private static Logger logger = Logger.getLogger(DBManager.class.getName());
+	
+	public static DBManager connect(String connectionString, boolean isSecured) {
+		if (connectionString == null) {
+			throw new IllegalStateException("Connection string can't be null");
+		}
+		
 		if ("".equals(connectionString)) {
-			throw new IllegalStateException("Empty connection string " + connectionString);
+			throw new IllegalStateException("Connection string can't be empty");
 		}
 		
-		if ("invalid".equals(connectionString)) {
-			throw new IllegalStateException("Invalid connection string " + connectionString);
+		if (connectionString.contains(" ")) {
+			throw new IllegalStateException("Invalid connection string");
 		}
 		
-		// rest of db intialization
+		return new DBManager(connectionString, isSecured);
+	}
+	
+	private final String connectionString;
+	private final boolean isSecured;
+	
+	public DBManager(String connectionString, boolean isSecured) {
+		logger.log(Level.INFO, "Created new DBManager");
+		this.connectionString = connectionString;
+		this.isSecured = isSecured;
+	}
+	
+	public boolean testConnection() {
+		logger.log(Level.INFO, "About to check connection to " + connectionString);
+		
+		if (!ConnectionChecker.check(this.connectionString))
+		{
+			logger.log(Level.WARNING, "Connection failed for " + connectionString);
+			throw new IllegalStateException("Connection failed for " + connectionString); 
+		}
+		
+		if (isSecured)
+		{
+			if (!ConnectionChecker.secureCheck(this.connectionString))
+			{
+				logger.log(Level.SEVERE, "Connection is not secure " + connectionString);
+				throw new IllegalStateException("Unsecured connection " + connectionString); 
+			}
+		}
 		
 		return true;
 	}
-
 }
